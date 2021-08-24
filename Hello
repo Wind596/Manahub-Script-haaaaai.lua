@@ -2,37 +2,47 @@ local lib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scri
 
 local win = lib:Window("Mana Hub - Game",Color3.fromRGB(44, 120, 224), Enum.KeyCode.RightControl)
 
-local tab = win:Tab("Tab 1")
-
-tab:Toggle("Noclip (Toggle key: E)",false, function(t)
-    _G.Key = "tesBbuHotiaR"
-    noclip = false
-    game:GetService('RunService').Stepped:connect(function()
-    if noclip then
-    game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
-    end
-    end)
-    plr = game.Players.LocalPlayer
-    mouse = plr:GetMouse()
-    mouse.KeyDown:connect(function(key)
-    
-    if key == "e" then
-    noclip = not noclip
-    game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
-    end
-    end)
-    TextLabel("Prees E for noclip")
-    print('Loaded')
-    print('Press "E" to noclip')
-    print(t)
-    end)
+local tab = win:Tab("Autofarm")
+  
+  tab:Label("im not skilled at all i this Zone :P")
 
 local tab = win:Tab("Misc")
 
 tab:Toggle("Speed",false, function(state)
     if state then
-        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 150
-    else
-        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
-    end
-    end)
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 150
+else
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+
+end
+end)
+
+    tab:Toggle("Noclip",false, function(state)
+
+        game:service'StarterGui':SetCore("SendNotification", {
+            Title = "Noclip";
+            Text = "> Toggle key: E <";
+        })
+        
+        noclip = false
+        game:GetService('RunService').Stepped:connect(function()
+        if noclip then
+        game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+        end
+        end)
+        plr = game.Players.LocalPlayer
+        mouse = plr:GetMouse()
+        mouse.KeyDown:connect(function(key)
+        
+        if key == "e" then
+        noclip = not noclip
+        game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+        end
+        end)
+        TextLabel("Prees E for noclip")
+        print('Loaded')
+        print('Press "E" to noclip')
+        print(t)
+        end)
+
+    
