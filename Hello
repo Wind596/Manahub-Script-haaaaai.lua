@@ -1,0 +1,133 @@
+local lib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/Vape.txt")()
+
+local win = lib:Window("Mana Hub - Game",Color3.fromRGB(44, 120, 224), Enum.KeyCode.RightControl)
+
+local tab = win:Tab("Tab 1")
+
+tab:Toggle("Noclip (Toggle key: E)",false, function(t)
+    _G.Key = "tesBbuHotiaR"
+    noclip = false
+    game:GetService('RunService').Stepped:connect(function()
+    if noclip then
+    game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+    end
+    end)
+    plr = game.Players.LocalPlayer
+    mouse = plr:GetMouse()
+    mouse.KeyDown:connect(function(key)
+    
+    if key == "e" then
+    noclip = not noclip
+    game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+    end
+    end)
+    TextLabel("Prees E for noclip")
+    print('Loaded')
+    print('Press "E" to noclip')
+    print(t)
+    end)
+
+local tab = win:Tab("Tab 2")
+
+tab:Toggle("ESP in progress",false, function(t)
+    local Targets = {}
+    local FieldOfView = 500
+    local Dynamic = true
+    local Team = false
+    local Size = UDim2.new(0, 18, 0, 21)
+    local Color = Color3.fromRGB(255, 255, 255)
+    
+    local Players = game:GetService("Players")
+    local LocalPlayer = Players.LocalPlayer
+    local Camera = workspace.CurrentCamera
+    
+    local ScreenGui = Instance.new("ScreenGui", game:GetService("CoreGui"))
+    local Folder = Instance.new("Folder", ScreenGui)
+    
+    local function Target(Player)
+       local ImageLabel = Instance.new("ImageLabel", Folder)
+       ImageLabel.Name = "ImageLabel"
+       ImageLabel.ImageColor3 = Color
+       ImageLabel.BackgroundTransparency = 1
+       ImageLabel.Image = "http://www.roblox.com/asset/?id=6954524255"
+       
+       Targets[Player.Name] = {
+           Player = Player,
+           Indicator = ImageLabel
+       }
+    end
+    
+    for _, Player in next, Players:GetPlayers() do
+       if Player ~= LocalPlayer then
+           Target(Player)
+       end
+    end
+    
+    Players.PlayerAdded:Connect(function(Player)
+       Target(Player)
+    end)
+    
+    game:GetService("RunService").RenderStepped:connect(function()
+        local CurrentPart = nil
+        local MaxInc = 20
+         
+        function onTouched(hit)
+            if hit.Parent == nil then
+                return
+            end
+         
+            local humanoid = hit.Parent:findFirstChild("Humanoid")
+         
+            if humanoid == nil then
+                CurrentPart = hit
+            end
+        end
+         
+        function waitForChild(parent, childName)
+            local child = parent:findFirstChild(childName)
+         
+            if child then
+                return child
+            end
+         
+            while true do
+                print(childName)
+         
+                child = parent.ChildAdded:wait()
+         
+                if child.Name==childName then
+                    return child
+                end
+            end
+        end
+         
+        local Figure = script.Parent
+        local Humanoid = waitForChild(Figure, "Humanoid")
+        local Torso = waitForChild(Figure, "Torso")
+        local Left = waitForChild(Figure, "Left Leg")
+        local Right = waitForChild(Figure, "Right Leg")
+         
+        Humanoid.Jump = true
+         
+        Left.Touched:connect(onTouched)
+        Right.Touched:connect(onTouched)
+         
+        while true do
+            wait(math.random(2, 6))
+         
+            if CurrentPart ~= nil then
+                if math.random(1, 2) == 1 then
+                    Humanoid.Jump = true
+                end
+         
+                Humanoid:MoveTo(Torso.Position + Vector3.new(math.random(-MaxInc, MaxInc), 0, math.random(-MaxInc, MaxInc)), CurrentPart)
+            end
+        end
+end)
+
+tab:Toggle("Speed",false, function(state)
+    if state then
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 150
+    else
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+    end)
