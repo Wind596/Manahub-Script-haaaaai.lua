@@ -1,5 +1,10 @@
 local lib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/Vape.txt")()
 
+	game:service'StarterGui':SetCore("SendNotification", {
+		Title = "welcome to Manahub";
+		Text = ">join for updates< https://discord.gg/NSJKdznY3M";
+	})
+  
 local win = lib:Window("Mana Hub - Game",Color3.fromRGB(44, 120, 224), Enum.KeyCode.RightControl)
 
 local tab = win:Tab("Autofarm")
