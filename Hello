@@ -1,34 +1,34 @@
 local lib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/Vape.txt")()
 
-	game:service'StarterGui':SetCore("SendNotification", {
-		Title = "welcome to Manahub";
-		Text = ">join for updates< https://discord.gg/NSJKdznY3M";
-	})
-  
+game:service'StarterGui':SetCore("SendNotification", {
+    Title = "welcome to Manahub";
+    Text = " :D https://discord.gg/NSJKdznY3M ";
+})
+
 local win = lib:Window("Mana Hub - Game",Color3.fromRGB(44, 120, 224), Enum.KeyCode.RightControl)
 
 local tab = win:Tab("Autofarm")
   
-  tab:Label("im not skilled at all i this Zone :P")
+   tab:Label("im not skilled at all i this Zone :P")
 
 local tab = win:Tab("Misc")
 
-tab:Toggle("Speed",false, function(state)
-    if state then
-            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 150
-else
-    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
-
-end
+tab:Button("ESP", function(state)
+    loadstring(game:HttpGet("https://pastebin.com/raw/sTJMUmL4", true))()
 end)
 
-    tab:Toggle("Noclip",false, function(state)
+tab:Toggle("Speed",false, function(state)
+    if state then
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 150
+    else
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+    end
+    end)
+    tab:Button("Noclip", function(state)
 
-        game:service'StarterGui':SetCore("SendNotification", {
-            Title = "Noclip";
-            Text = "> Toggle key: E <";
-        })
-        
+        lib:Notification("Notification", "Toggle key: E", "OKI")
+
+        _G.Key = "tesBbuHotiaR"
         noclip = false
         game:GetService('RunService').Stepped:connect(function()
         if noclip then
@@ -44,10 +44,12 @@ end)
         game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
         end
         end)
-        TextLabel("Prees E for noclip")
-        print('Loaded')
-        print('Press "E" to noclip')
         print(t)
         end)
+
+        tab:Button("Fly", function()
+            lib:Notification("Notification", "Toggle key: F", "OKI")
+            loadstring(game:HttpGet("https://pastebin.com/raw/558pRBkv", true))()
+            end)
 
     
