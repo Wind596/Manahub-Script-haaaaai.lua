@@ -26,7 +26,7 @@ tab:Toggle("Speed",false, function(state)
     end)
     tab:Button("Noclip", function(state)
 
-        lib:Notification("Notification", "Toggle key: E", "OKI")
+        lib:Notification("Notification", "Toggle key: Y", "OKI")
 
         _G.Key = "tesBbuHotiaR"
         noclip = false
@@ -39,7 +39,7 @@ tab:Toggle("Speed",false, function(state)
         mouse = plr:GetMouse()
         mouse.KeyDown:connect(function(key)
         
-        if key == "e" then
+        if key == "y" then
         noclip = not noclip
         game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
         end
@@ -48,8 +48,21 @@ tab:Toggle("Speed",false, function(state)
         end)
 
         tab:Button("Fly", function()
-            lib:Notification("Notification", "Toggle key: F", "OKI")
+            lib:Notification("Notification", "Toggle key: N", "OKI")
             loadstring(game:HttpGet("https://pastebin.com/raw/558pRBkv", true))()
             end)
 
-    
+            tab:Button("Hitbox Expander", function()
+                loadstring(game:HttpGet("https://pastebin.com/raw/xqCwCACA", true))()
+                end)
+            
+                tab:Button("Anti-Afk", function()
+
+lib:Notification("Notification", "Anti-Afk: Active", "OKI")
+
+
+game:service'Players'.LocalPlayer.Idled:connect(function()
+    bb:CaptureController()bb:ClickButton2(Vector2.new())
+    ab.Text="hello"wait(2)ab.Text="Script Re-Enabled"
+    end)  
+                end)
