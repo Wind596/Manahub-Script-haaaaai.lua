@@ -13,56 +13,246 @@ local tab = win:Tab("Autofarm")
 
 local tab = win:Tab("Misc")
 
-tab:Button("ESP", function(state)
-    loadstring(game:HttpGet("https://pastebin.com/raw/sTJMUmL4", true))()
+tab:Button("ESP", function()
+    
+    local Player = game:GetService("Players").LocalPlayer
+local Camera = game:GetService("Workspace").CurrentCamera
+local Mouse = Player:GetMouse()
+
+local function Dist(pointA, pointB) -- magnitude errors for some reason  : (
+    return math.sqrt(math.pow(pointA.X - pointB.X, 2) + math.pow(pointA.Y - pointB.Y, 2))
+end
+
+local function GetClosest(points, dest)
+    local min  = math.huge 
+    local closest = nil
+    for _,v in pairs(points) do
+        local dist = Dist(v, dest)
+        if dist < min then
+            min = dist
+            closest = v
+        end
+    end
+    return closest
+end
+
+local function DrawESP(plr)
+    local Box = Drawing.new("Quad")
+    Box.Visible = false
+    Box.PointA = Vector2.new(0, 0)
+    Box.PointB = Vector2.new(0, 0)
+    Box.PointC = Vector2.new(0, 0)
+    Box.PointD = Vector2.new(0, 0)
+    Box.Color = Color3.fromRGB(255, 255, 255)
+    Box.Thickness = 2
+    Box.Transparency = 1
+
+    local function Update()
+        local c
+        c = game:GetService("RunService").RenderStepped:Connect(function()
+            if plr.Character ~= nil and plr.Character:FindFirstChildOfClass("Humanoid") ~= nil and plr.Character:FindFirstChild("HumanoidRootPart") ~= nil and plr.Character:FindFirstChildOfClass("Humanoid").Health > 0 and plr.Character:FindFirstChild("Head") ~= nil then
+                local pos, vis = Camera:WorldToViewportPoint(plr.Character.HumanoidRootPart.Position)
+                if vis then 
+                    local points = {}
+                    local c = 0
+                    for _,v in pairs(plr.Character:GetChildren()) do
+                        if v:IsA("BasePart") then
+                            c = c + 1
+                            local p = Camera:WorldToViewportPoint(v.Position)
+                            if v.Name == "HumanoidRootPart" then
+                                p = Camera:WorldToViewportPoint((v.CFrame * CFrame.new(0, 0, -v.Size.Z)).p)
+                            elseif v.Name == "Head" then
+                                p = Camera:WorldToViewportPoint((v.CFrame * CFrame.new(0, v.Size.Y/2, v.Size.Z/1.25)).p)
+                            elseif string.match(v.Name, "Left") then
+                                p = Camera:WorldToViewportPoint((v.CFrame * CFrame.new(-v.Size.X/2, 0, 0)).p)
+                            elseif string.match(v.Name, "Right") then
+                                p = Camera:WorldToViewportPoint((v.CFrame * CFrame.new(v.Size.X/2, 0, 0)).p)
+                            end
+                            points[c] = p
+                        end
+                    end
+                    local Left = GetClosest(points, Vector2.new(0, pos.Y))
+                    local Right = GetClosest(points, Vector2.new(Camera.ViewportSize.X, pos.Y))
+                    local Top = GetClosest(points, Vector2.new(pos.X, 0))
+                    local Bottom = GetClosest(points, Vector2.new(pos.X, Camera.ViewportSize.Y))
+
+                    if Left ~= nil and Right ~= nil and Top ~= nil and Bottom ~= nil then
+                        Box.PointA = Vector2.new(Right.X, Top.Y)
+                        Box.PointB = Vector2.new(Left.X, Top.Y)
+                        Box.PointC = Vector2.new(Left.X, Bottom.Y)
+                        Box.PointD = Vector2.new(Right.X, Bottom.Y)
+
+                        Box.Visible = true
+                    else 
+                        Box.Visible = false
+                    end
+                else 
+                    Box.Visible = false
+                end
+            else
+                Box.Visible = false
+                if game.Players:FindFirstChild(plr.Name) == nil then
+                    c:Disconnect()
+                end
+            end
+        end)
+    end
+    coroutine.wrap(Update)()
+end
+
+for _,v in pairs(game:GetService("Players"):GetChildren()) do
+    if v.Name ~= Player.Name then 
+        DrawESP(v)
+    end
+end
+
+game:GetService("Players").PlayerAdded:Connect(function(v)
+    DrawESP(v)
+end)
+
 end)
 
 tab:Toggle("Speed",false, function(state)
-    if state then
-        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 150
+    
+        if state then
+            _G.HackedWalkSpeed = 200
+ 
+            local Plrs = game:GetService("Players")
+             
+            local MyPlr = Plrs.LocalPlayer
+            local MyChar = MyPlr.Character
+             
+            if MyChar then
+            local Hum = MyChar.Humanoid
+            Hum.Changed:connect(function()
+            Hum.WalkSpeed = _G.HackedWalkSpeed
+            end)
+            Hum.WalkSpeed = _G.HackedWalkSpeed
+            end
+             
+             
+            MyPlr.CharacterAdded:connect(function(Char)
+            MyChar = Char
+            repeat wait() until Char:FindFirstChild("Humanoid")
+            local Hum = Char.Humanoid
+            Hum.Changed:connect(function()
+            Hum.WalkSpeed = _G.HackedWalkSpeed
+            end)
+            Hum.WalkSpeed = _G.HackedWalkSpeed
+            end)
     else
-        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+        _G.HackedWalkSpeed = 16
+ 
+local Plrs = game:GetService("Players")
+ 
+local MyPlr = Plrs.LocalPlayer
+local MyChar = MyPlr.Character
+ 
+if MyChar then
+local Hum = MyChar.Humanoid
+Hum.Changed:connect(function()
+Hum.WalkSpeed = _G.HackedWalkSpeed
+end)
+Hum.WalkSpeed = _G.HackedWalkSpeed
+end
+ 
+ 
+MyPlr.CharacterAdded:connect(function(Char)
+MyChar = Char
+repeat wait() until Char:FindFirstChild("Humanoid")
+local Hum = Char.Humanoid
+Hum.Changed:connect(function()
+Hum.WalkSpeed = _G.HackedWalkSpeed
+end)
+Hum.WalkSpeed = _G.HackedWalkSpeed
+end)
     end
     end)
-    tab:Button("Noclip", function(state)
 
-        lib:Notification("Notification", "Toggle key: Y", "OKI")
+    tab:Toggle("Noclip",false, function(t)
+        if state then
 
-        _G.Key = "tesBbuHotiaR"
-        noclip = false
-        game:GetService('RunService').Stepped:connect(function()
-        if noclip then
-        game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
-        end
-        end)
-        plr = game.Players.LocalPlayer
-        mouse = plr:GetMouse()
-        mouse.KeyDown:connect(function(key)
-        
-        if key == "y" then
-        noclip = not noclip
-        game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
-        end
-        end)
+            noclip = false
+            game:GetService('RunService').Stepped:connect(function()
+            if noclip then
+            game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+            end
+            end)
+
+        else
+
+            noclip = not noclip
+game:GetService('RunService').Stepped:connect(function()
+if noclip then
+game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+end
+end)
         print(t)
+        end
         end)
+        
+
 
         tab:Button("Fly", function()
             lib:Notification("Notification", "Toggle key: N", "OKI")
             loadstring(game:HttpGet("https://pastebin.com/raw/558pRBkv", true))()
             end)
 
-            tab:Button("Hitbox Expander", function()
-                loadstring(game:HttpGet("https://pastebin.com/raw/xqCwCACA", true))()
-                end)
+            tab:Toggle("Hitbox Expander",false, function(r)
+
+if state then
+
+_G.HeadSize = 20
+_G.Disabled = true
+
+game:GetService('RunService').RenderStepped:connect(function()
+if _G.Disabled then
+for i,v in next, game:GetService('Players'):GetPlayers() do
+if v.Name ~= game:GetService('Players').LocalPlayer.Name then
+pcall(function()
+v.Character.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
+v.Character.HumanoidRootPart.Transparency = 0.7
+v.Character.HumanoidRootPart.BrickColor = BrickColor.new("Really white")
+v.Character.HumanoidRootPart.Material = "Neon"
+v.Character.HumanoidRootPart.CanCollide = false
+end)
+end
+end
+end
+end)
+
+
+end
+end)
             
                 tab:Button("Anti-Afk", function()
 
-lib:Notification("Notification", "Anti-Afk: Active", "OKI")
-
+lib:Notification("Notification", "Anti-Afk Active", "OKE")
 
 game:service'Players'.LocalPlayer.Idled:connect(function()
     bb:CaptureController()bb:ClickButton2(Vector2.new())
-    ab.Text="hello"wait(2)ab.Text="Script Re-Enabled"
-    end)  
+    ab.Text="hello"wait(2)ab.Text="Script Re-Enabled"end)  
                 end)
+
+tab:Toggle("Jump Power",false, function(state)
+    if state then
+        local plr = game.Players.LocalPlayer
+
+        plr.Character.Humanoid.JumpPower = 150
+
+        else
+
+            local plr = game.Players.LocalPlayer
+
+plr.Character.Humanoid.JumpPower = 50
+
+        end
+end)
+
+
+
+local changeclr = win:Tab("Change UI Color")
+
+changeclr:Colorpicker("Change UI Color",Color3.fromRGB(44, 120, 224), function(t)
+lib:ChangePresetColor(Color3.fromRGB(t.R * 255, t.G * 255, t.B * 255))
+end)
