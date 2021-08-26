@@ -5,13 +5,21 @@ game:service'StarterGui':SetCore("SendNotification", {
     Text = " :D https://discord.gg/NSJKdznY3M ";
 })
 
-local win = lib:Window("Mana Hub - Game",Color3.fromRGB(44, 120, 224), Enum.KeyCode.RightControl)
+local win = lib:Window("Mana Hub - Pet Simulator X",Color3.fromRGB(44, 120, 224), Enum.KeyCode.RightControl)
 
 local tab = win:Tab("Autofarm")
-  
-   tab:Label("im not skilled at all i this Zone :P")
+
+tab:Label("im bad at this fliping shait ;-;")
 
 local tab = win:Tab("Misc")
+
+tab:Slider("WalkSpeed",0,250,16, function(v)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
+end)
+
+tab:Slider("JumpPower",0,250,50, function(v)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = v
+end)
 
 tab:Button("ESP", function()
     
@@ -112,62 +120,6 @@ end)
 
 end)
 
-tab:Toggle("Speed",false, function(state)
-    
-        if state then
-            _G.HackedWalkSpeed = 200
- 
-            local Plrs = game:GetService("Players")
-             
-            local MyPlr = Plrs.LocalPlayer
-            local MyChar = MyPlr.Character
-             
-            if MyChar then
-            local Hum = MyChar.Humanoid
-            Hum.Changed:connect(function()
-            Hum.WalkSpeed = _G.HackedWalkSpeed
-            end)
-            Hum.WalkSpeed = _G.HackedWalkSpeed
-            end
-             
-             
-            MyPlr.CharacterAdded:connect(function(Char)
-            MyChar = Char
-            repeat wait() until Char:FindFirstChild("Humanoid")
-            local Hum = Char.Humanoid
-            Hum.Changed:connect(function()
-            Hum.WalkSpeed = _G.HackedWalkSpeed
-            end)
-            Hum.WalkSpeed = _G.HackedWalkSpeed
-            end)
-    else
-        _G.HackedWalkSpeed = 16
- 
-local Plrs = game:GetService("Players")
- 
-local MyPlr = Plrs.LocalPlayer
-local MyChar = MyPlr.Character
- 
-if MyChar then
-local Hum = MyChar.Humanoid
-Hum.Changed:connect(function()
-Hum.WalkSpeed = _G.HackedWalkSpeed
-end)
-Hum.WalkSpeed = _G.HackedWalkSpeed
-end
- 
- 
-MyPlr.CharacterAdded:connect(function(Char)
-MyChar = Char
-repeat wait() until Char:FindFirstChild("Humanoid")
-local Hum = Char.Humanoid
-Hum.Changed:connect(function()
-Hum.WalkSpeed = _G.HackedWalkSpeed
-end)
-Hum.WalkSpeed = _G.HackedWalkSpeed
-end)
-    end
-    end)
 
     tab:Toggle("Noclip",false, function(t)
         if state then
@@ -256,3 +208,80 @@ local changeclr = win:Tab("Change UI Color")
 changeclr:Colorpicker("Change UI Color",Color3.fromRGB(44, 120, 224), function(t)
 lib:ChangePresetColor(Color3.fromRGB(t.R * 255, t.G * 255, t.B * 255))
 end)
+
+local tab = win:Tab("Teleport")
+
+tab:Label("use cannon to enter fantasy im retarted")
+
+tab:Button("Shop", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(238.144, 111.573, 237.901)
+end)
+
+tab:Button("Town", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(238.144, 111.573, 237.901)
+end)
+
+tab:Button("Forest", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-273.036, 94.1148, 238.075)
+end)
+
+tab:Button("Beach", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-590.136, 94.1148, 231.877)
+end)
+
+tab:Button("Mine", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-961.619, 94.1148, 235.404)
+end)
+
+tab:Button("Winter", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1294.25, 94.1148, 234.026)
+end)
+
+tab:Button("Glacier", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1652.23, 94.1148, 227.276)
+end)
+
+tab:Button("Desert", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2038.76, 94.1148, 235.885)
+end)
+
+tab:Button("Volcano", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2389.6, 94.1148, 234.465)
+end)
+
+tab:Button("Cave", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2751.27, 94.1148, 228.631)
+end)
+
+tab:Label("use cannon to enter fantasy im retarted")
+
+tab:Button("Enchanted Forest", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(3131.05, 97.1148, 238.211)
+end)
+
+tab:Button("Fantasy Shop", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(3377.12, 123.873, 243.531)
+end)
+
+tab:Button("Ancient island", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(3182.23, 123.379, -403.674)
+end)
+
+tab:Button("Samurai island", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(3642.39, 123.46, 799.922)
+end)
+
+tab:Button("Candy island", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2844.27, 123.693, 1231.02)
+end)
+
+tab:Button("Haunted island", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2436.53, 123.461, -539.682)
+end)
+
+tab:Button("Hell island", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(3996.56, 123.46, -271.882)
+end)
+
+
+
