@@ -201,14 +201,6 @@ plr.Character.Humanoid.JumpPower = 50
         end
 end)
 
-
-
-local changeclr = win:Tab("Change UI Color")
-
-changeclr:Colorpicker("Change UI Color",Color3.fromRGB(44, 120, 224), function(t)
-lib:ChangePresetColor(Color3.fromRGB(t.R * 255, t.G * 255, t.B * 255))
-end)
-
 local tab = win:Tab("Teleport")
 
 tab:Label("use cannon to enter fantasy im retarted")
@@ -281,6 +273,13 @@ end)
 
 tab:Button("Hell island", function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(3996.56, 123.46, -271.882)
+end)
+
+
+local changeclr = win:Tab("Change UI Color")
+
+changeclr:Colorpicker("Change UI Color",Color3.fromRGB(44, 120, 224), function(t)
+lib:ChangePresetColor(Color3.fromRGB(t.R * 255, t.G * 255, t.B * 255))
 end)
 
 
